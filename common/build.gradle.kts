@@ -55,25 +55,6 @@ kotlin {
             dependencies {
             }
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain.get())
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-
-        // Native CLI targets source sets
-        val nativeCliMain by creating {
-            dependsOn(commonMain.get())
-        }
-        val linuxX64Main by getting { dependsOn(nativeCliMain) }
-        val linuxArm64Main by getting { dependsOn(nativeCliMain) }
-        val macosX64Main by getting { dependsOn(nativeCliMain) }
-        val macosArm64Main by getting { dependsOn(nativeCliMain) }
-        val mingwX64Main by getting { dependsOn(nativeCliMain) }
     }
 }
 

@@ -3,7 +3,6 @@ package com.inspiredandroid.linuxcommandbibliotheca
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.preference.PreferenceManager
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -34,7 +33,7 @@ class ComposeDeeplinkTests {
         val context: Context = ApplicationProvider.getApplicationContext()
 
         // Clear bookmarks
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
         prefs.edit().putString("KEY_BOOKMARKS", "").apply()
     }
 
