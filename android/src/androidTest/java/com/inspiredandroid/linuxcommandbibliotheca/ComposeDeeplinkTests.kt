@@ -73,7 +73,6 @@ class ComposeDeeplinkTests {
     fun testCommandList() {
         openUrl("https://linuxcommandlibrary.com/")
 
-        composeTestRule.onNodeWithContentDescription("Back").performClick()
         composeTestRule.onNodeWithContentDescription("TopAppBarTitle")
             .assertTextEquals("Commands")
     }
