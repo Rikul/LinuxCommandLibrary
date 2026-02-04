@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
-import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Before
@@ -23,10 +22,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ComposeDeeplinkTests {
 
-    private lateinit var scenario: ActivityScenario<MainActivity>
-
     @get:Rule
-    val composeTestRule = createEmptyComposeRule()
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Before
     fun setUp() {
@@ -38,8 +35,14 @@ class ComposeDeeplinkTests {
     }
 
     private fun openUrl(url: String) {
+        val context = ApplicationProvider.getApplicationContext<Context>()
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        scenario = ActivityScenario.launch(intent)
+            .setPackage(context.packageName)
+        
+        composeTestRule.activityRule.scenario.onActivity { activity ->
+            activity.startActivity(intent)
+        }
+        composeTestRule.waitForIdle()
     }
 
     @Test
@@ -53,7 +56,7 @@ class ComposeDeeplinkTests {
     @Test
     fun testBasicCategory() {
         openUrl("https://linuxcommandlibrary.com/basic/usersgroups")
-
+        
         composeTestRule.onNodeWithContentDescription("TopAppBarTitle")
             .assertTextEquals("Users & Groups")
     }
