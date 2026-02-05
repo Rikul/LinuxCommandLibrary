@@ -6,9 +6,11 @@ This document provides comprehensive guidance on leveraging AI agents and automa
 
 ## About the Linux Command Library
 
-The Linux Command Library is a comprehensive, offline-first reference application containing over 6,200 Linux command manual pages, 23+ categorized command groups, and practical terminal tips. Built with Kotlin Multiplatform, it delivers a consistent user experience across Android, iOS, Desktop (macOS, Windows, Linux), CLI, and Web platforms. The application works entirely offline with no internet connection required and includes no tracking software, making it an ideal companion for developers, system administrators, and Linux enthusiasts who need quick access to command documentation.
+The Linux Command Library is a comprehensive, offline-first reference application containing over 7,600 Linux command manual pages, 23+ categorized command groups, and practical terminal tips. Built with Kotlin Multiplatform, it delivers a consistent user experience across Android, iOS, Desktop (macOS, Windows, Linux), CLI, and Web platforms.
 
-The project's content is organized into three main categories stored in the `assets/` directory: **commands** (7,675+ individual command manual pages like `ls.md`, `grep.md`), **basics** (23+ category files organizing commands by topic such as "Git", "Package manager", "Coding agents"), and **tips** (a single `tips.md` file containing general terminal usage guidance). Each command and category is stored as a markdown file, which are parsed at runtime and rendered through platform-specific UI implementations.
+The application works entirely offline with no internet connection required and includes no tracking software, making it an ideal companion for developers, system administrators, and Linux enthusiasts who need quick access to command documentation.
+
+The project's content is organized into three main categories stored in the `assets/` directory. **Commands** contains 7,675+ individual command manual pages like `ls.md` and `grep.md`. **Basics** includes 23+ category files organizing related commands by topic such as "Git", "Package manager", and "Coding agents". **Tips** consists of a single `tips.md` file containing general terminal usage guidance. Each command and category is stored as a markdown file, which are parsed at runtime and rendered through platform-specific UI implementations.
 
 ### Application Execution Flow
 
@@ -44,7 +46,7 @@ The codebase follows a clean Kotlin Multiplatform architecture:
 
 ### Current Features
 
-- **Comprehensive Command Reference**: 6,200+ Linux command manual pages with detailed documentation
+- **Comprehensive Command Reference**: 7,600+ Linux command manual pages with detailed documentation
 - **Categorized Command Groups**: 23+ categories including Git, System Information, Package Managers, Hacking Tools, Text Editors, and Coding Agents
 - **Offline-First Design**: All content is bundled with the app; no internet connection required
 - **Cross-Platform Support**: Native apps for Android, iOS, macOS, Windows, Linux (desktop and CLI)
