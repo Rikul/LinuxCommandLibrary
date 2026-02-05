@@ -4,6 +4,58 @@
 
 This document provides comprehensive guidance on leveraging AI agents and automation tools when contributing to the Linux Command Library project. AI agents can significantly enhance development productivity, code quality, and project maintenance across all supported platforms (Android, iOS, Desktop, CLI, and Web).
 
+## About the Linux Command Library
+
+The Linux Command Library is a comprehensive, offline-first reference application containing over 6,200 Linux command manual pages, 23+ categorized command groups, and practical terminal tips. Built with Kotlin Multiplatform, it delivers a consistent user experience across Android, iOS, Desktop (macOS, Windows, Linux), CLI, and Web platforms. The application works entirely offline with no internet connection required and includes no tracking software, making it an ideal companion for developers, system administrators, and Linux enthusiasts who need quick access to command documentation.
+
+The project's content is organized into three main categories stored in the `assets/` directory: **commands** (7,675+ individual command manual pages like `ls.md`, `grep.md`), **basics** (23+ category files organizing commands by topic such as "Git", "Package manager", "Coding agents"), and **tips** (a single `tips.md` file containing general terminal usage guidance). Each command and category is stored as a markdown file, which are parsed at runtime and rendered through platform-specific UI implementations.
+
+### Application Execution Flow
+
+When the app launches, it follows this execution flow:
+
+1. **Platform Initialization**: Each platform (Android, iOS, Desktop, CLI) initializes its specific implementation of the `AssetReader` interface, which provides access to the markdown files in the `assets/` directory.
+
+2. **Data Loading**: The application uses repository classes (`CommandsRepository`, `BasicsRepository`, `TipsRepository`) located in `composeApp/src/commonMain/kotlin/com/linuxcommandlibrary/app/data/` to load and cache content. These repositories read markdown files through the `AssetReader`, parse them using `MarkdownParser`, and transform them into data models (`CommandInfo`, `BasicCategory`, etc.).
+
+3. **UI Rendering**: The Compose Multiplatform UI (shared across Android, iOS, and Desktop) displays the content through ViewModels that manage state and user interactions. The CLI platform uses a simpler text-based interface. Navigation is handled through a bottom navigation bar with three main sections: Commands, Basics (categorized commands), and Tips.
+
+4. **Search and Browse**: Users can search for commands by name, browse commands alphabetically, explore categorized command groups, or read general tips. When a command is selected, its markdown content is parsed into sections (NAME, SYNOPSIS, DESCRIPTION, etc.) and rendered with proper formatting and clickable cross-references to other commands.
+
+5. **Deep Linking**: The Android app supports deep links (e.g., `linuxcommandlibrary://man/ls`) for direct navigation to specific commands, useful for integration with other apps or documentation.
+
+### Code Organization
+
+The codebase follows a clean Kotlin Multiplatform architecture:
+
+- **`common/`**: Core shared logic including platform abstractions, markdown parsing, and data models
+- **`composeApp/`**: Compose Multiplatform UI code shared across Android, iOS, and Desktop
+  - **`commonMain/`**: Shared UI components, ViewModels, and repositories
+  - **`androidMain/`, `iosMain/`, `desktopMain/`**: Platform-specific implementations (AssetReader, sharing, preferences)
+- **`android/`**: Android-specific application wrapper and configuration
+- **`iosApp/`**: iOS application wrapper (SwiftUI integration)
+- **`desktopApp/`**: Desktop application entry point
+- **`cli/`**: Command-line interface implementation using Kotlin/Native
+- **`websiteBuilder/`**: Static website generation for linuxcommandlibrary.com
+- **`assets/`**: Content directory containing all markdown files
+  - **`commands/`**: 7,675+ individual command manual pages
+  - **`basics/`**: 23+ category files organizing related commands
+  - **`tips.md`**: General terminal tips and tricks
+
+### Current Features
+
+- **Comprehensive Command Reference**: 6,200+ Linux command manual pages with detailed documentation
+- **Categorized Command Groups**: 23+ categories including Git, System Information, Package Managers, Hacking Tools, Text Editors, and Coding Agents
+- **Offline-First Design**: All content is bundled with the app; no internet connection required
+- **Cross-Platform Support**: Native apps for Android, iOS, macOS, Windows, Linux (desktop and CLI)
+- **Powerful Search**: Fast command search by name with intelligent ranking (exact matches first, then prefix matches)
+- **Terminal Tips**: Practical guidance on terminal usage, keyboard shortcuts, and command syntax
+- **Markdown Rendering**: Rich text formatting with code blocks, cross-references, and clickable command links
+- **Deep Linking**: Direct navigation to specific commands via URL schemes (Android)
+- **Dark Mode Support**: Platform-aware theming for comfortable reading in any environment
+- **No Tracking**: Privacy-focused design with no analytics or telemetry
+- **Open Source**: Apache 2.0 licensed with active community contributions
+
 ## Table of Contents
 
 - [Development Agents](#development-agents)
